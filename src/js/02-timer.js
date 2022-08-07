@@ -8,7 +8,8 @@ const hoursEl = document.querySelector(".value[data-hours]")
 const minutesEl = document.querySelector(".value[data-minutes]")
 const secondsEl = document.querySelector(".value[data-seconds]")
 
-startBtn.setAttribute("disabled", true)
+startBtn.disabled = true
+
 const options = {
     enableTime: true,
     time_24hr: true,
@@ -17,13 +18,15 @@ const options = {
     
     onClose(selectedDates) {
     
-        if (selectedDates[0] < Date.now()) {
+        const selectedDate = selectedDates[0].getTime();
+
+        if (selectedDate < Date.now()) {
             startBtn.setAttribute("disabled", true);
             window.alert("Please choose a date in the future");
             return;
         }
       
-        startBtn.removeAttribute('disabled');
+        startBtn.disabled = false;
      
         function timer() {
             const intervalId = setInterval(() => {
@@ -40,7 +43,7 @@ const options = {
             }, 1000);
         }
     
-startBtn.addEventListener("click", timer());
+startBtn.addEventListener("click", timer);
     }
 
 }
